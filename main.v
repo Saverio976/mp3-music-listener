@@ -13,7 +13,7 @@ import listiny_button_fn {
 	btn_download_yt, 
 	btn_music_after, 
 	btn_music_before, 
-	btn_pause_audio, 
+	btn_stop_audio, 
 	btn_play_audio,
 	// TODO : btn_page_back,
 	// TODO : btn_page_next
@@ -191,7 +191,7 @@ fn main() {
 							ui.ColumnConfig{
 								children: [
 									ui.button(
-										text: '<<'
+										text: 'previous'
 										onclick: btn_music_before
 										height: 25
 									)
@@ -202,7 +202,7 @@ fn main() {
 							ui.ColumnConfig{
 								children: [
 									ui.button(
-										text: 'Play'
+										text: 'play'
 										onclick: btn_play_audio
 										height: 25
 									)
@@ -213,8 +213,8 @@ fn main() {
 							ui.ColumnConfig{
 								children: [
 									ui.button(
-										text: 'Pause'
-										onclick: btn_pause_audio
+										text: 'stop'
+										onclick: btn_stop_audio
 										height: 25
 									)
 								]
@@ -224,7 +224,7 @@ fn main() {
 							ui.ColumnConfig{
 								children: [
 									ui.button(
-										text: '>>'
+										text: 'next'
 										onclick: btn_music_after
 										height: 25
 									)
