@@ -11,6 +11,8 @@ pub fn btn_stop_audio(mut app App, x voidptr) {
 	}
 	i := app.sound.index
 	app.audio_files[i].sound.pause()
+	app.audio_files[i].sound.seek(0)
+	app.audio_files[i].sound.pause()
 	app.sound.is_playing = false
 	app.sound.is_paused = true
 }
