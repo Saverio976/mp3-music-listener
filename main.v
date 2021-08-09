@@ -3,12 +3,12 @@ module main
 import ui
 import os
 import gx
-import yt_dl_struct { App, AudioFile }
-import yt_dl_checkbox_fn { 
+import listiny_struct { App, AudioFile }
+import listiny_checkbox_fn { 
 	chk_audio_only_changed,
 	chk_video_changed
 }
-import yt_dl_button_fn { 
+import listiny_button_fn { 
 	btn_change_index, 
 	btn_download_yt, 
 	btn_music_after, 
@@ -32,11 +32,19 @@ const (
 fn find_local_audio_file() []AudioFile {
 	mut audio_files := []AudioFile{}
 	for i, file in os.walk_ext(audio_folder, '.mp3') {
-		audio_files << AudioFile{
-			index: i
-			name: os.file_name(file).trim_right('.mp3')
-			path: file
-			is_in_device_buffer: false
+		$if windows {
+			audio_files << AudioFile{
+				index: i
+				name: os.file_name(file).trim_right('.mp3')
+				path: file
+			}
+		} $else {
+			audio_files << AudioFile{
+				index: i
+				name: os.file_name(file).trim_right('.mp3')
+				path: file
+				is_in_device_buffer: false
+			}
 		}
 	}
 	return audio_files
@@ -64,6 +72,7 @@ fn music_grid_init(audio_files []AudioFile) &ui.Grid {
 	return gr
 }
 
+[console]
 fn main() {
 	audio_files := find_local_audio_file()
 	mut app := &App{
@@ -228,7 +237,13 @@ fn main() {
 		]
 	})
 	ui.run(window)
-	if app.sound.is_paused && app.sound.is_playing {
-		app.sound.device.free()
+	$if windows {
+		if app.sound.is_playing {
+			os.execute('taskkill /im wmplayer.exe')
+		}
+	} $else {
+		if app.sound.is_paused && app.sound.is_playing {
+			app.sound.device.free()
+		}
 	}
 }

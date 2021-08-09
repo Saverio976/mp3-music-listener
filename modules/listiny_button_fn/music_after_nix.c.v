@@ -1,0 +1,25 @@
+module listiny_button_fn
+
+import listiny_struct { App }
+
+pub fn btn_music_after(mut app App, x voidptr) {
+	index_before := app.sound.index
+	index_after := index_before + 1
+	if index_after == app.audio_files.len {
+		app.sound.index = 0
+	} else {
+		app.sound.index = index_after
+	}
+
+	if !app.audio_files[index_before].is_in_device_buffer {
+		btn_play_audio(mut app, voidptr(0))
+		return
+	}
+	app.audio_files[index_before].sound.pause()
+	app.audio_files[index_before].sound.seek(0)
+	app.audio_files[index_before].sound.pause()
+	app.sound.is_playing = false
+	app.sound.is_paused = true
+
+	btn_play_audio(mut app, voidptr(0))
+}
