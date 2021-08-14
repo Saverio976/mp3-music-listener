@@ -10,7 +10,6 @@ pub fn btn_stop_audio(mut app App, x voidptr) {
 	if !app.sound.is_playing {
 		return
 	}
-	i := app.sound.index
 	
 	execute('taskkill /im wmplayer.exe')
 
