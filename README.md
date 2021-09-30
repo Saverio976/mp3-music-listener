@@ -9,6 +9,7 @@ open a terminal/cmd
 v up
 v install ui
 git clone https://github.com/Saverio976/mp3-music-listener.git
+cd mp3-music-listener
 ```
 on linux
 ```shell
