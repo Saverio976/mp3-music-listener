@@ -7,11 +7,11 @@ import yt_download
 pub fn download_audio(url string, dir string) ?string {
 	id := parse_video_id(url) or { return err }
 	is_valid_url(id) or { return err }
-	mut path := youtugo.download_audio(id, dir) or { '' }
+	mut path := yt_download.download_best_audio(id, dir) or { '' }
 	if path != '' {
 		return path
 	}
-	path = yt_download.download_best_audio(id, dir) or { 
+	path = youtugo.download_audio(id, dir) or { 
 		return err
 	}
 	return path
