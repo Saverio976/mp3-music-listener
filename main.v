@@ -4,16 +4,16 @@ import ui
 import os
 import gx
 import listiny_struct { App, AudioFile }
-import listiny_checkbox_fn { 
+import listiny_checkbox_fn {
 	chk_audio_only_changed,
 	chk_video_changed
 }
-import listiny_button_fn { 
-	btn_change_index, 
-	btn_download_yt, 
-	btn_music_after, 
-	btn_music_before, 
-	btn_stop_audio, 
+import listiny_button_fn {
+	btn_change_index,
+	btn_download_yt,
+	btn_music_after,
+	btn_music_before,
+	btn_stop_audio,
 	btn_play_audio,
 	// TODO : btn_page_back,
 	// TODO : btn_page_next
@@ -59,7 +59,7 @@ fn get_matrix_index_name(audio_files []AudioFile) [][]string {
 }
 
 fn music_grid_init(audio_files []AudioFile) &ui.Grid {
-	mut gr := ui.grid(ui.GridConfig{
+	mut gr := ui.grid(ui.GridParams{
 			header: grid_header
 			body: get_matrix_index_name(audio_files)
 			width: win_width - 20
@@ -81,7 +81,7 @@ fn main() {
 		audio_folder: audio_folder
 		video_folder: video_folder
 	}
-	window := ui.window(ui.WindowConfig{
+	window := ui.window(ui.WindowParams{
 		width: win_width
 		height: win_height
 		state: app
@@ -90,7 +90,7 @@ fn main() {
 		bg_color: gx.dark_blue
 		children: [
 			ui.rectangle(
-				ui.RectangleConfig{
+				ui.RectangleParams{
 					x: 0
 					y: 0
 					height: 25
@@ -99,7 +99,7 @@ fn main() {
 				}
 			),
 			ui.group(
-				ui.GroupConfig{
+				ui.GroupParams{
 					x: 10
 					y: 30
 					title: 'download'
@@ -111,12 +111,12 @@ fn main() {
 							text: &app.form.youtube_url
 							is_focused: true
 						),
-						ui.checkbox(ui.CheckBoxConfig{
+						ui.checkbox(ui.CheckBoxParams{
 							text: 'Download Audio'
 							checked: true
 							on_check_changed: chk_audio_only_changed
 						}),
-						ui.checkbox(ui.CheckBoxConfig{
+						ui.checkbox(ui.CheckBoxParams{
 							text: 'Download Video'
 							checked: false
 							on_check_changed: chk_video_changed
@@ -129,7 +129,7 @@ fn main() {
 					]
 				}
 			),
-			ui.rectangle(ui.RectangleConfig{
+			ui.rectangle(ui.RectangleParams{
 				x: 0
 				y: win_height/4 + 5
 				height: 10
@@ -178,7 +178,7 @@ fn main() {
 				]
 			)*/
 			ui.row(
-				ui.RowConfig{
+				ui.RowParams{
 					spacing: 1
 					margin: ui.Margin{
 						top: win_height*15 / 16
@@ -188,7 +188,7 @@ fn main() {
 					}
 					children: [
 						ui.column(
-							ui.ColumnConfig{
+							ui.ColumnParams{
 								children: [
 									ui.button(
 										text: 'previous'
@@ -199,7 +199,7 @@ fn main() {
 							}
 						),
 						ui.column(
-							ui.ColumnConfig{
+							ui.ColumnParams{
 								children: [
 									ui.button(
 										text: 'play'
@@ -210,7 +210,7 @@ fn main() {
 							}
 						),
 						ui.column(
-							ui.ColumnConfig{
+							ui.ColumnParams{
 								children: [
 									ui.button(
 										text: 'stop'
@@ -221,7 +221,7 @@ fn main() {
 							}
 						),
 						ui.column(
-							ui.ColumnConfig{
+							ui.ColumnParams{
 								children: [
 									ui.button(
 										text: 'next'
@@ -233,7 +233,7 @@ fn main() {
 						)
 					]
 				}
-			)	
+			)
 		]
 	})
 	ui.run(window)
